@@ -281,14 +281,13 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     video_path = "input_video.mp4"
     try:
-        ydl_opts = {
-            "outtmpl":      video_path,
-            "format":       "best[height<=720][ext=mp4]/best[height<=720]/best",
-            "quiet":        True,
-            "no_warnings":  True,
-          "extractor_args": {"youtube": {"player_client": ["ios"]}},
-"http_headers": {"User-Agent": "com.google.ios.youtube/19.16.3 (iPhone14,3; U; CPU iOS 17_4 like Mac OS X)"},
-
+                ydl_opts = {
+            "outtmpl": video_path,
+            "format": "best[height<=720][ext=mp4]/best[height<=720]/best",
+            "quiet": True,
+            "no_warnings": True,
+            "extractor_args": {"youtube": {"player_client": ["ios"]}},
+            "http_headers": {"User-Agent": "com.google.ios.youtube/19.16.3 (iPhone14,3; U; CPU iOS 17_4 like Mac OS X)"},
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([text])
