@@ -286,6 +286,9 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "format":       "best[height<=720][ext=mp4]/best[height<=720]/best",
             "quiet":        True,
             "no_warnings":  True,
+            "extractor_args": {"youtube": {"player_client": ["android"]}},
+"http_headers": {"User-Agent": "com.google.android.youtube/17.36.4 (Linux; U; Android 12) gzip"},
+
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([text])
