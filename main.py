@@ -179,7 +179,12 @@ application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_t
 @app.route(f"/webhook/{TELEGRAM_TOKEN}", methods=["POST"])
 def webhook():
     update = Update.de_json(request.get_json(force=True), application.bot)
-    asyncio.run(application.process_update(update))
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        loop.run_until_complete(application.process_update(update))
+    finally:
+        loop.close()
     return "ok", 200
 
 @app.route("/health")
